@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAF7F2">
+<title>CET-4 备考空间站 | 2026年12月</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js" integrity="sha384-pPi0zxBAoDu6+JXW/C68UZLvBUUtU+7zonhif43rqj7pxsGyqyqzcian2Rj37Rss" crossorigin="anonymous"></script>
+<style>
+:root {
+  --ink: #1A2E4B;
+  --ink-light: #2C4260;
+  --paper: #FAF7F2;
+  --paper-dark: #F0EBE1;
+  --accent: #E8720C;
+  --accent-light: #F5A623;
+  --success: #3A7D5C;
+  --muted: #8A8275;
+  --line: #D9D2C5;
+  --white: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ===== 导航 ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 24px;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 700; font-size: 18px; color: var(--ink);
+  letter-spacing: 1px;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--ink-light);
+  font-size: 14px; font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 80px 24px 60px;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(232, 114, 12, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(26, 46, 75, 0.05) 0%, transparent 50%);
+  position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(26, 46, 75, 0.03) 1px, transparent 1px);
+  background-size: 100% 32px;
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px;
+  align-items: center; position: relative; z-index: 1;
+}
+.hero-tag {
+  display: inline-block; padding: 6px 16px;
+  background: var(--ink); color: var(--paper);
+  font-size: 12px; font-weight: 500; letter-spacing: 2px;
+  border-radius: 2px; margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 900; line-height: 1.2;
+  color: var(--ink); margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: normal; color: var(--accent);
+  position: relative;
+}
+.hero h1 em::after {
+  content: ''; position: absolute; left: 0; bottom: 4px;
+  width: 100%; height: 8px;
+  background: rgba(232, 114, 12, 0.2); z-index: -1;
+}
+.hero-sub {
+  font-size: 17px; color: var(--ink-light);
+  margin-bottom: 32px; max-width: 480px;
+}
+.hero-meta {
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.hero-meta-item { display: flex; flex-direction: column; }
+.hero-meta-item .label {
+  font-size: 12px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+}
+.hero-meta-item .value {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px; font-weight: 700; color: var(--ink);
+}
+
+/* 倒计时卡片 */
+.countdown-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px; padding: 36px 32px;
+  box-shadow: 0 20px 60px rgba(26, 46, 75, 0.08);
+  position: relative; overflow: hidden;
+}
+.countdown-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+}
+.countdown-label {
+  font-size: 13px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 16px; text-align: center;
+}
+.countdown-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+.countdown-unit {
+  text-align: center; padding: 12px 4px;
+  background: var(--paper); border-radius: 6px;
+}
+.countdown-unit .num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 36px; font-weight: 900; color: var(--ink);
+  line-height: 1; display: block;
+}
+.countdown-unit .unit {
+  font-size: 11px; color: var(--muted); margin-top: 6px; display: block;
+}
+.countdown-progress {
+  margin-top: 16px;
+}
+.progress-bar {
+  height: 6px; background: var(--paper-dark);
+  border-radius: 3px; overflow: hidden; margin-bottom: 8px;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 3px; transition: width 0.5s;
+}
+.progress-text {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--muted);
+}
+
+/* ===== 通用section ===== */
+.section {
+  padding: 80px 24px;
+}
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-header { margin-bottom: 48px; }
+.section-tag {
+  display: inline-block; font-size: 12px; color: var(--accent);
+  font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700; color: var(--ink);
+  margin-bottom: 12px;
+}
+.section-desc { font-size: 16px; color: var(--muted); max-width: 600px; }
+
+/* ===== 阶段时间线 ===== */
+.phases {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.phase-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 8px; padding: 28px 24px;
+  cursor: pointer; transition: all 0.3s;
+  position: relative;
+}
+.phase-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(26, 46, 75, 0.1);
+  border-color: var(--accent);
+}
+.phase-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(232, 114, 12, 0.12);
+}
+.phase-card.active::before {
+  content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 3px;
+  background: var(--accent); border-radius: 0 0 2px 2px;
+}
+.phase-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 48px; font-weight: 900; color: var(--paper-dark);
+  line-height: 1; margin-bottom: 12px;
+}
+.phase-card.active .phase-num { color: rgba(232, 114, 12, 0.15); }
+.phase-name {
+  font-size: 18px; font-weight: 700; color: var(--ink);
+  margin-bottom: 8px;
+}
+.phase-date {
+  font-size: 13px; color: var(--muted); margin-bottom: 16px;
+}
+.phase-goal {
+  font-size: 14px; color: var(--ink-light); line-height: 1.6;
+}
+.phase-detail {
+  margin-top: 32px; background: var(--white);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 32px; display: none;
+}
+.phase-detail.show { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.phase-detail h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--ink);
+}
+.phase-detail table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+}
+.phase-detail th {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 12px; text-align: left; font-weight: 500;
+}
+.phase-detail td {
+  padding: 10px 12px; border-bottom: 1px solid var(--line);
+  color: var(--ink-light);
+}
+.phase-detail tr:nth-child(even) td { background: var(--paper); }
+
+/* ===== 今日任务 ===== */
+.tasks-section { background: var(--ink); color: var(--paper); }
+.tasks-section .section-tag { color: var(--accent-light); }
+.tasks-section .section-title { color: var(--paper); }
+.tasks-section .section-desc { color: rgba(250,247,242,0.6); }
+.tasks-container {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+}
+.task-list {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 24px;
+}
+.task-list h3 {
+  font-size: 16px; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.task-list h3 .count {
+  font-size: 12px; background: var(--accent);
+  padding: 2px 8px; border-radius: 10px; font-weight: 500;
+}
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer; transition: opacity 0.2s;
+}
+.task-item:last-child { border-bottom: none; }
+.task-item.done { opacity: 0.4; }
+.task-item.done .task-text { text-decoration: line-through; }
+.task-checkbox {
+  width: 20px; height: 20px; min-width: 20px;
+  border: 2px solid rgba(255,255,255,0.3); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; margin-top: 2px;
+}
+.task-item.done .task-checkbox {
+  background: var(--accent); border-color: var(--accent);
+}
+.task-checkbox svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.2s; }
+.task-item.done .task-checkbox svg { opacity: 1; }
+.task-text { font-size: 14px; line-height: 1.5; }
+.task-time {
+  font-size: 11px; color: rgba(250,247,242,0.5); margin-top: 2px;
+}
+.task-link {
+  color: var(--accent-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.task-link:hover { opacity: 0.8; }
+.task-link svg {
+  width: 12px; height: 12px; display: inline-block;
+  vertical-align: middle; margin-left: 3px;
+}
+.task-progress-wrap { margin-top: 20px; }
+.task-progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 13px; margin-bottom: 8px;
+}
+.task-progress-bar {
+  height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+}
+.task-progress-fill {
+  height: 100%; background: var(--accent); border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* ===== 题型技巧 ===== */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+}
+.skill-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 8px; padding: 28px;
+  transition: all 0.3s;
+}
+.skill-card:hover {
+  box-shadow: 0 12px 32px rgba(26, 46, 75, 0.08);
+}
+.skill-header {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+}
+.skill-icon {
+  width: 48px; height: 48px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.skill-icon svg { width: 24px; height: 24px; }
+.skill-icon.writing { background: rgba(232, 114, 12, 0.1); }
+.skill-icon.listening { background: rgba(26, 46, 75, 0.1); }
+.skill-icon.reading { background: rgba(58, 125, 92, 0.1); }
+.skill-icon.translation { background: rgba(156, 92, 56, 0.1); }
+.skill-title { font-size: 18px; font-weight: 700; color: var(--ink); }
+.skill-score { font-size: 13px; color: var(--muted); }
+.skill-tips { list-style: none; }
+.skill-tips li {
+  font-size: 14px; color: var(--ink-light);
+  padding: 8px 0; padding-left: 20px; position: relative;
+  border-bottom: 1px solid var(--paper-dark);
+}
+.skill-tips li:last-child { border-bottom: none; }
+.skill-tips li::before {
+  content: ''; position: absolute; left: 0; top: 16px;
+  width: 8px; height: 2px; background: var(--accent);
+}
+
+/* ===== 考试流程 ===== */
+.exam-flow {
+  position: relative; padding-left: 40px;
+}
+.exam-flow::before {
+  content: ''; position: absolute; left: 12px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--line);
+}
+.flow-item {
+  position: relative; padding-bottom: 28px;
+}
+.flow-item:last-child { padding-bottom: 0; }
+.flow-item::before {
+  content: ''; position: absolute; left: -34px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--white); border: 3px solid var(--accent);
+}
+.flow-time {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 15px; font-weight: 700; color: var(--accent);
+  margin-bottom: 4px;
+}
+.flow-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.flow-desc { font-size: 14px; color: var(--muted); }
+
+/* ===== 资源推荐 ===== */
+.resources-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+}
+.resource-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 8px; padding: 24px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.resource-icon {
+  width: 40px; height: 40px; min-width: 40px;
+  background: var(--paper-dark); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.resource-icon svg { width: 20px; height: 20px; }
+.resource-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.resource-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ===== 页脚 ===== */
+.footer {
+  background: var(--ink); color: rgba(250,247,242,0.5);
+  padding: 40px 24px; text-align: center;
+  font-size: 13px;
+}
+.footer strong { color: var(--paper); font-family: 'Noto Serif SC', serif; }
+
+/* ===== 学霸方法论 ===== */
+.method-section { background: var(--ink); color: var(--paper); }
+.method-section .section-tag { color: var(--accent-light); }
+.method-section .section-title { color: var(--paper); }
+.method-section .section-desc { color: rgba(250,247,242,0.6); }
+.method-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+}
+.method-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 24px;
+  transition: all 0.3s;
+}
+.method-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: var(--accent);
+}
+.method-card.full { grid-column: 1 / -1; }
+.method-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px; font-weight: 700; color: var(--accent-light);
+  letter-spacing: 2px; margin-bottom: 8px;
+}
+.method-title {
+  font-size: 18px; font-weight: 700; color: var(--paper);
+  margin-bottom: 12px;
+}
+.method-desc {
+  font-size: 14px; color: rgba(250,247,242,0.7);
+  line-height: 1.8; margin-bottom: 12px;
+}
+.method-steps { list-style: none; }
+.method-steps li {
+  font-size: 13px; color: rgba(250,247,242,0.6);
+  padding: 6px 0; padding-left: 18px; position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.method-steps li:last-child { border-bottom: none; }
+.method-steps li::before {
+  content: ''; position: absolute; left: 0; top: 14px;
+  width: 8px; height: 2px; background: var(--accent);
+}
+.method-steps li strong { color: var(--accent-light); font-weight: 600; }
+.method-quote {
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px; margin-top: 12px;
+  font-size: 13px; color: rgba(250,247,242,0.5);
+  font-style: italic; line-height: 1.7;
+}
+.order-flow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap; margin: 20px 0;
+}
+.order-step {
+  background: rgba(232,114,12,0.15);
+  border: 1px solid var(--accent);
+  border-radius: 6px; padding: 12px 20px;
+  text-align: center;
+}
+.order-step .step-num {
+  font-size: 11px; color: var(--accent-light);
+  letter-spacing: 1px; margin-bottom: 4px;
+}
+.order-step .step-name {
+  font-size: 15px; font-weight: 700; color: var(--paper);
+}
+.order-arrow {
+  color: var(--accent); font-size: 20px; font-weight: 700;
+}
+
+/* ===== 成绩中心 ===== */
+.score-section { background: var(--paper-dark); }
+.score-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.score-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 8px; padding: 28px;
+}
+.score-card.full { grid-column: 1 / -1; }
+.score-card h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px; font-weight: 700; color: var(--ink);
+  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+}
+.score-card h3::before {
+  content: ''; width: 4px; height: 18px;
+  background: var(--accent); border-radius: 2px;
+}
+.form-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+}
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-size: 13px; font-weight: 500; color: var(--ink-light);
+}
+.form-group input, .form-group select {
+  padding: 10px 12px; border: 1px solid var(--line);
+  border-radius: 6px; font-size: 14px; font-family: inherit;
+  background: var(--paper); color: var(--ink);
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none; border-color: var(--accent);
+}
+.btn-primary {
+  background: var(--ink); color: var(--paper);
+  border: none; padding: 12px 24px; border-radius: 6px;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--accent); }
+.btn-danger {
+  background: transparent; color: #C0392B;
+  border: 1px solid #C0392B; padding: 4px 10px;
+  border-radius: 4px; font-size: 12px; cursor: pointer;
+  font-family: inherit; transition: all 0.2s;
+}
+.btn-danger:hover { background: #C0392B; color: white; }
+.score-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;
+}
+.stat-box {
+  text-align: center; padding: 16px 8px;
+  background: var(--paper); border-radius: 6px;
+}
+.stat-box .stat-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 28px; font-weight: 900; color: var(--ink);
+  line-height: 1.2;
+}
+.stat-box .stat-num.pass { color: var(--success); }
+.stat-box .stat-num.fail { color: #C0392B; }
+.stat-box .stat-label {
+  font-size: 12px; color: var(--muted); margin-top: 4px;
+}
+.chart-container { width: 100%; min-height: 320px; }
+.score-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.score-table th {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 8px; text-align: center; font-weight: 500; font-size: 12px;
+}
+.score-table td {
+  padding: 10px 8px; border-bottom: 1px solid var(--line);
+  text-align: center; color: var(--ink-light);
+}
+.score-table tr:nth-child(even) td { background: var(--paper); }
+.score-table .total-col { font-weight: 700; color: var(--ink); }
+.score-table .pass-row .total-col { color: var(--success); }
+.score-table .fail-row .total-col { color: #C0392B; }
+.analysis-tip {
+  background: rgba(232, 114, 12, 0.08);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px; border-radius: 0 6px 6px 0;
+  margin-top: 16px; font-size: 14px; color: var(--ink-light);
+  line-height: 1.7;
+}
+.analysis-tip strong { color: var(--accent); }
+.empty-state {
+  text-align: center; padding: 40px 20px; color: var(--muted);
+}
+.empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.4; }
+.empty-state p { font-size: 14px; }
+
+/* ===== 全局移动端优化 ===== */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+input, button, select, textarea {
+  font-size: 16px;
+  touch-action: manipulation;
+}
+button {
+  min-height: 44px;
+  min-width: 44px;
+}
+a { touch-action: manipulation; }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .nav { padding: 0 16px; }
+  .nav-inner { height: 52px; }
+  .nav-logo { font-size: 16px; }
+  .nav-toggle {
+    display: block; background: none; border: none; cursor: pointer;
+    padding: 8px; min-height: auto; min-width: auto;
+  }
+  .nav-links {
+    display: none;
+    position: fixed; top: 52px; left: 0; right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    padding: 12px 20px 20px;
+    gap: 0;
+    box-shadow: 0 8px 24px rgba(26,46,75,0.1);
+    z-index: 99;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li {
+    border-bottom: 1px solid var(--paper-dark);
+  }
+  .nav-links li:last-child { border-bottom: none; }
+  .nav-links a {
+    display: block; padding: 14px 0;
+    font-size: 15px;
+  }
+  .hero { min-height: auto; padding: 80px 20px 50px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .hero h1 { font-size: 32px; }
+  .hero-sub { font-size: 15px; }
+  .hero-meta { gap: 20px; }
+  .hero-meta-item .value { font-size: 18px; }
+  .countdown-card { padding: 24px 20px; }
+  .countdown-grid { gap: 8px; }
+  .countdown-unit .num { font-size: 28px; }
+  .countdown-unit { padding: 10px 2px; }
+  .section { padding: 50px 16px; }
+  .section-header { margin-bottom: 32px; }
+  .section-title { font-size: 26px; }
+  .section-desc { font-size: 14px; }
+  .phases { grid-template-columns: 1fr; gap: 16px; }
+  .phase-card { padding: 20px 18px; }
+  .phase-num { font-size: 36px; }
+  .phase-detail { padding: 20px 16px; margin-top: 20px; }
+  .phase-detail h3 { font-size: 17px; }
+  .phase-detail table {
+    font-size: 13px;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  .tasks-container { grid-template-columns: 1fr; gap: 20px; }
+  .task-list { padding: 20px 16px; }
+  .task-item { padding: 14px 0; }
+  .task-checkbox { width: 22px; height: 22px; min-width: 22px; }
+  .task-text { font-size: 14px; }
+  .score-grid { grid-template-columns: 1fr; gap: 16px; }
+  .score-card { padding: 20px 16px; }
+  .score-card h3 { font-size: 16px; margin-bottom: 16px; }
+  .score-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+  .stat-box { padding: 16px 12px; }
+  .stat-num { font-size: 24px; }
+  .stat-label { font-size: 11px; }
+  .form-row { grid-template-columns: 1fr; gap: 12px; }
+  .form-group label { font-size: 12px; }
+  .form-group input {
+    padding: 12px 14px;
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+  .chart-container { height: 260px !important; }
+  #history-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .score-table {
+    font-size: 12px;
+    min-width: 560px;
+  }
+  .score-table th, .score-table td { padding: 8px 6px; }
+  .btn-danger {
+    padding: 6px 10px;
+    font-size: 12px;
+    min-height: 32px;
+    min-width: auto;
+  }
+  .method-grid { grid-template-columns: 1fr; gap: 16px; }
+  .method-card { padding: 20px 16px; }
+  .method-title { font-size: 16px; }
+  .order-flow { flex-direction: column; gap: 8px; }
+  .order-arrow { transform: rotate(90deg); font-size: 16px; }
+  .order-step { padding: 10px 16px; width: 100%; }
+  .skills-grid { grid-template-columns: 1fr; gap: 16px; }
+  .skill-card { padding: 20px 16px; }
+  .exam-flow { padding-left: 32px; }
+  .exam-flow::before { left: 8px; }
+  .flow-item::before { left: -28px; }
+  .flow-time { font-size: 14px; }
+  .flow-title { font-size: 15px; }
+  .flow-desc { font-size: 13px; }
+  .resources-grid { grid-template-columns: 1fr; gap: 12px; }
+  .resource-card { padding: 16px; }
+  .footer { padding: 32px 16px; font-size: 12px; }
+  #analysis-content > div:first-child {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: 28px; }
+  .countdown-unit .num { font-size: 24px; }
+  .countdown-unit .unit { font-size: 10px; }
+  .score-stats { grid-template-columns: 1fr 1fr !important; }
+  .stat-num { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">CET-4 <span>备考空间站</span></div>
+    <ul class="nav-links">
+      <li><a href="#overview">总览</a></li>
+      <li><a href="#phases">阶段规划</a></li>
+      <li><a href="#tasks">今日任务</a></li>
+      <li><a href="#scores">成绩中心</a></li>
+      <li><a href="#method">学霸方法</a></li>
+      <li><a href="#skills">题型技巧</a></li>
+      <li><a href="#exam">考试流程</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="菜单">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="hero" id="overview">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">2026年12月12日 考试</span>
+      <h1>从<em>86分</em>到四级通关<br>13周系统备考计划</h1>
+      <p class="hero-sub">信息管理与信息系统专业 · 大二 · 基于星火英语应试指南定制，三阶段递进式学习，每天2—3小时，稳扎稳打突破425分。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="label">备考周期</span>
+          <span class="value">91天 / 13周</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">目标分数</span>
+          <span class="value">425+</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">每日投入</span>
+          <span class="value">2—3小时</span>
+        </div>
+      </div>
+    </div>
+    <div class="countdown-card">
+      <div class="countdown-label">距离四级考试还有</div>
+      <div class="countdown-grid">
+        <div class="countdown-unit"><span class="num" id="cd-days">--</span><span class="unit">天</span></div>
+        <div class="countdown-unit"><span class="num" id="cd-hours">--</span><span class="unit">时</span></div>
+        <div class="countdown-unit"><span class="num" id="cd-mins">--</span><span class="unit">分</span></div>
+        <div class="countdown-unit"><span class="num" id="cd-secs">--</span><span class="unit">秒</span></div>
+      </div>
+      <div class="countdown-progress">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        <div class="progress-text">
+          <span>备考进度</span>
+          <span id="progress-text">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="phases">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">ROADMAP</span>
+      <h2 class="section-title">三阶段备考路线</h2>
+      <p class="section-desc">从基础夯实到冲刺模考，每个阶段有明确的目标和可验证的成果。点击卡片查看详细周计划。</p>
+    </div>
+    <div class="phases">
+      <div class="phase-card active" data-phase="0">
+        <div class="phase-num">01</div>
+        <div class="phase-name">基础夯实期</div>
+        <div class="phase-date">9/13 — 10/18 · 5周</div>
+        <div class="phase-goal">先认词再拆句：单词大量快速重复，阅读题干定位法突破，听力"看懂90%文本再听"入门。</div>
+      </div>
+      <div class="phase-card" data-phase="1">
+        <div class="phase-num">02</div>
+        <div class="phase-name">强化提升期</div>
+        <div class="phase-date">10/19 — 11/22 · 5周</div>
+        <div class="phase-goal">先阅读后听力：阅读技巧固化，听力精听5遍法突破，翻译写作模板集中突破。</div>
+      </div>
+      <div class="phase-card" data-phase="2">
+        <div class="phase-num">03</div>
+        <div class="phase-name">冲刺模考期</div>
+        <div class="phase-date">11/23 — 12/12 · 3周</div>
+        <div class="phase-goal">单一任务专注：隔天全真模考，20小时窄域突破最弱项，黑红笔法拆解错题。</div>
+      </div>
+    </div>
+    <div class="phase-detail show" id="phase-detail-0">
+      <h3>第一阶段：基础夯实期 · 每日时间表</h3>
+      <table>
+        <tr><th>时间段</th><th>内容</th><th>时长</th><th>要求</th></tr>
+        <tr><td>早晨</td><td>单词背诵</td><td>30分钟</td><td>新词50个+艾宾浩斯复习，大声朗读</td></tr>
+        <tr><td>中午/课间</td><td>听力泛听</td><td>20分钟</td><td>VOA慢速英语，培养语感</td></tr>
+        <tr><td>晚间</td><td>语法学习</td><td>30分钟</td><td>每天1个语法点+配套练习</td></tr>
+        <tr><td>晚间</td><td>精听训练</td><td>30分钟</td><td>盲听3遍→看原文→跟读复述</td></tr>
+        <tr><td>晚间</td><td>阅读精读</td><td>30分钟</td><td>逐句分析真题阅读，积累生词</td></tr>
+      </table>
+    </div>
+    <div class="phase-detail" id="phase-detail-1">
+      <h3>第二阶段：强化提升期 · 每日时间表</h3>
+      <table>
+        <tr><th>时间段</th><th>内容</th><th>时长</th><th>要求</th></tr>
+        <tr><td>早晨</td><td>单词复习</td><td>20分钟</td><td>高频词巩固+错题词汇</td></tr>
+        <tr><td>晚间</td><td>听力训练</td><td>40分钟</td><td>真题听力1套+精听错题部分</td></tr>
+        <tr><td>晚间</td><td>阅读专项</td><td>40分钟</td><td>按题型轮换：仔细/长篇/选词填空</td></tr>
+        <tr><td>晚间</td><td>写作/翻译</td><td>30分钟</td><td>单周写作、双周翻译交替</td></tr>
+        <tr><td>周末</td><td>完整模考</td><td>2.5小时</td><td>严格计时+错题分析</td></tr>
+      </table>
+    </div>
+    <div class="phase-detail" id="phase-detail-2">
+      <h3>第三阶段：冲刺模考期 · 核心安排</h3>
+      <table>
+        <tr><th>时间</th><th>任务</th><th>具体要求</th></tr>
+        <tr><td>11/23—11/29</td><td>全真模考×3套</td><td>隔天一套，严格9:00-11:20计时，当天错题分析</td></tr>
+        <tr><td>11/30—12/6</td><td>薄弱点突破+模考×2套</td><td>针对模考暴露问题专项训练，继续隔天模考</td></tr>
+        <tr><td>12/7—12/9</td><td>回顾总结</td><td>错题本+写作模板+翻译高频词，不做新题</td></tr>
+        <tr><td>12/10</td><td>考前准备</td><td>准考证、身份证、学生证、文具、耳机</td></tr>
+        <tr><td>12/11</td><td>调整状态</td><td>轻松复习，早睡，确认考场位置</td></tr>
+        <tr><td>12/12</td><td>考试日</td><td>提前到达，按流程应考</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tasks-section" id="tasks">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">DAILY TASKS</span>
+      <h2 class="section-title">今日学习任务</h2>
+      <p class="section-desc">勾选已完成的任务，进度自动保存在本地。根据当前备考阶段自动匹配任务清单。</p>
+    </div>
+    <div class="tasks-container">
+      <div class="task-list">
+        <h3>基础任务 <span class="count" id="basic-count">0/0</span></h3>
+        <div id="basic-tasks"></div>
+        <div class="task-progress-wrap">
+          <div class="task-progress-label">
+            <span>完成进度</span>
+            <span id="basic-percent">0%</span>
+          </div>
+          <div class="task-progress-bar"><div class="task-progress-fill" id="basic-progress" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="task-list">
+        <h3>专项任务 <span class="count" id="special-count">0/0</span></h3>
+        <div id="special-tasks"></div>
+        <div class="task-progress-wrap">
+          <div class="task-progress-label">
+            <span>完成进度</span>
+            <span id="special-percent">0%</span>
+          </div>
+          <div class="task-progress-bar"><div class="task-progress-fill" id="special-progress" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section score-section" id="scores">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">SCORE CENTER</span>
+      <h2 class="section-title">成绩中心</h2>
+      <p class="section-desc">录入每次模考成绩，自动生成趋势分析和薄弱项诊断，用数据驱动备考。</p>
+    </div>
+    <div class="score-card full" style="margin-bottom:24px;">
+      <h3>成绩概览（真实分 vs 常模赋分）</h3>
+      <div id="score-stats" class="score-stats" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-box">
+          <div class="stat-num" id="stat-count">0</div>
+          <div class="stat-label">已记录套数</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="stat-raw-avg">--</div>
+          <div class="stat-label">真实平均分</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="stat-scaled-avg">--</div>
+          <div class="stat-label">赋分平均分</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="stat-max">--</div>
+          <div class="stat-label">赋分最高分</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="stat-pass">0%</div>
+          <div class="stat-label">425通过率（赋分）</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="stat-latest">--</div>
+          <div class="stat-label">最近一次赋分</div>
+        </div>
+      </div>
+      <div id="score-empty" class="empty-state" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <p>还没有成绩记录，在下方录入第一次模考成绩吧</p>
+      </div>
+    </div>
+    <div class="score-grid">
+      <div class="score-card">
+        <h3>录入成绩（输入做对题数，自动算分）</h3>
+        <form id="score-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>考试日期</label>
+              <input type="date" id="score-date" required>
+            </div>
+            <div class="form-group">
+              <label>套题名称</label>
+              <input type="text" id="score-name" placeholder="如：2024年6月真题" required>
+            </div>
+          </div>
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin:12px 0 8px;">听力理解（共25题，满分248.5）</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>短篇新闻对题数（共7题，每题7.1分）</label>
+              <input type="number" id="q-news" min="0" max="7" step="1" placeholder="0-7" required>
+            </div>
+            <div class="form-group">
+              <label>长对话对题数（共8题，每题7.1分）</label>
+              <input type="number" id="q-dialog" min="0" max="8" step="1" placeholder="0-8" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>听力篇章对题数（共10题，每题14.2分）</label>
+              <input type="number" id="q-passage" min="0" max="10" step="1" placeholder="0-10" required>
+            </div>
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <div style="font-size:12px;color:var(--muted);padding:10px 0;">听力合计：<span id="listen-count">0</span>/25题</div>
+            </div>
+          </div>
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin:12px 0 8px;">阅读理解（共30题，满分248.5）</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>选词填空对题数（共10题，每题3.55分）</label>
+              <input type="number" id="q-cloze" min="0" max="10" step="1" placeholder="0-10" required>
+            </div>
+            <div class="form-group">
+              <label>长篇阅读对题数（共10题，每题7.1分）</label>
+              <input type="number" id="q-match" min="0" max="10" step="1" placeholder="0-10" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>仔细阅读对题数（共10题，每题14.2分）</label>
+              <input type="number" id="q-careful" min="0" max="10" step="1" placeholder="0-10" required>
+            </div>
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <div style="font-size:12px;color:var(--muted);padding:10px 0;">阅读合计：<span id="read-count">0</span>/30题</div>
+            </div>
+          </div>
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin:12px 0 8px;">写作与翻译（人工评分，0-15分档）</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>写作得分（满分15分，对照评分档）</label>
+              <input type="number" id="q-writing" min="0" max="15" step="0.5" placeholder="0-15" required>
+            </div>
+            <div class="form-group">
+              <label>翻译得分（满分15分，对照评分档）</label>
+              <input type="number" id="q-translation" min="0" max="15" step="0.5" placeholder="0-15" required>
+            </div>
+          </div>
+          <div id="score-preview" style="display:none;background:var(--paper);border-radius:6px;padding:16px;margin:16px 0;">
+            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">预估分数</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="text-align:center;">
+                <div style="font-size:11px;color:var(--muted);">真实总分</div>
+                <div id="preview-raw" style="font-size:24px;font-weight:900;font-family:'Noto Serif SC',serif;color:var(--ink);">--</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:11px;color:var(--muted);">常模赋分</div>
+                <div id="preview-scaled" style="font-size:24px;font-weight:900;font-family:'Noto Serif SC',serif;color:var(--accent);">--</div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">保存成绩</button>
+        </form>
+      </div>
+      <div class="score-card">
+        <h3>能力雷达图</h3>
+        <div id="radar-chart" class="chart-container"></div>
+        <div id="radar-empty" class="empty-state" style="display:none;">
+          <p>录入成绩后生成能力画像</p>
+        </div>
+      </div>
+      <div class="score-card full">
+        <h3>成绩趋势分析</h3>
+        <div id="trend-chart" class="chart-container"></div>
+      </div>
+      <div class="score-card full">
+        <h3>试卷分析与薄弱项诊断</h3>
+        <div id="analysis-content">
+          <div class="empty-state">
+            <p>选择一套试卷查看详细分析</p>
+          </div>
+        </div>
+        <div id="history-list" style="margin-top:20px;">
+          <h4 style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:12px;">历史记录</h4>
+          <div id="history-table-wrap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section method-section" id="method">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">METHOD BY 学霸厂长</span>
+      <h2 class="section-title">学霸厂长方法论</h2>
+      <p class="section-desc">提炼自@学霸厂长（清华学霸厂长）英语学习核心理念，顺序错了，努力全部打折。</p>
+    </div>
+    <div class="method-card full" style="margin-bottom:20px;">
+      <div class="method-num">核心理念 01</div>
+      <div class="method-title">提分顺序论 — 顺序错一个，后面努力全部打折</div>
+      <div class="method-desc">四级提分不是平均用力，而是有严格的先后顺序。先搞定最容易短期提分的模块，再啃需要长期积累的硬骨头。</div>
+      <div class="order-flow">
+        <div class="order-step"><div class="step-num">STEP 1</div><div class="step-name">阅读突破</div></div>
+        <div class="order-arrow">→</div>
+        <div class="order-step"><div class="step-num">STEP 2</div><div class="step-name">听力精听</div></div>
+        <div class="order-arrow">→</div>
+        <div class="order-step"><div class="step-num">STEP 3</div><div class="step-name">翻译写作</div></div>
+      </div>
+      <div class="method-desc" style="margin-top:16px;">
+        <strong style="color:var(--accent-light);">为什么这个顺序？</strong>阅读技巧性最强、短期提分最快，先拿下阅读建立信心；听力需要"先看懂再听懂"的递进过程；翻译写作靠模板和积累，放最后集中突破。
+      </div>
+    </div>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-num">方法 02</div>
+        <div class="method-title">阅读：题干定位法</div>
+        <ul class="method-steps">
+          <li><strong>先看题干，不看选项</strong>——只看问题，防止被错误选项带偏</li>
+          <li><strong>带着问题读文章</strong>——读到相关段落立刻停下答题</li>
+          <li><strong>题文同序</strong>——出题顺序和文章顺序一致</li>
+          <li><strong>同义替换即答案</strong>——看见原文同义改写直接选，不要脑补</li>
+          <li><strong>长篇匹配</strong>——先圈出大写字母、数字、特殊名词，扫读定位</li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <div class="method-num">方法 03</div>
+        <div class="method-title">听力：看懂90%再听法</div>
+        <ul class="method-steps">
+          <li><strong>前置条件</strong>——能看懂听力文本90%的内容，才开始练听力</li>
+          <li><strong>第一句定生死</strong>——听力文本第一句往往是主旨，重点抓</li>
+          <li><strong>长难句拆解复听</strong>——听不懂的句子反复听，拆出弱读/连读/吞读</li>
+          <li><strong>返听至少5遍</strong>——实在听不出再看原文，能听出就默写对照</li>
+          <li><strong>黑红笔法</strong>——黑笔听写，红笔对照修改，标记语音现象</li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <div class="method-num">方法 04</div>
+        <div class="method-title">单词：大量快速重复法</div>
+        <ul class="method-steps">
+          <li><strong>一天几百个</strong>——不要一天只背20个，量大才能覆盖</li>
+          <li><strong>只记意思不记拼写</strong>——阅读和听力只需要认识，不需要会拼</li>
+          <li><strong>背了忘不要紧</strong>——重复多了自然记住，遗忘是正常的</li>
+          <li><strong>真题高频词优先</strong>——卷子上年年常考的核心词才是重点</li>
+          <li><strong>在阅读中巩固</strong>——背过的单词放到文章里理解，学以致用</li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <div class="method-num">方法 05</div>
+        <div class="method-title">效率：单一任务专注法</div>
+        <ul class="method-steps">
+          <li><strong>一天只做一件事</strong>——多任务并行效率只有逐个做的1/4</li>
+          <li><strong>20小时最小单元</strong>——每个单元只聚焦1个核心技能突破</li>
+          <li><strong>窄域集中冲刺</strong>——比如用20小时只练听力"日常对话"</li>
+          <li><strong>减少"即将去做"的时间</strong>——立刻开始，不要准备来准备去</li>
+          <li><strong>作业只是底线</strong>——回家后主动学的内容才是超越别人的关键</li>
+        </ul>
+      </div>
+    </div>
+    <div class="method-card full" style="margin-top:20px;">
+      <div class="method-num">方法 06</div>
+      <div class="method-title">翻译写作：模板+源题积累法</div>
+      <div class="method-desc">
+        翻译和写作是最后突破的模块，核心是<strong style="color:var(--accent-light);">不要考场现编</strong>。
+      </div>
+      <ul class="method-steps">
+        <li><strong>写作</strong>——固定背2-3套模板，拿真题作文套用练习，对照解析找问题，不要考场现编</li>
+        <li><strong>翻译</strong>——重点积累中国文化概况相关词汇（连续多年从该范围出题），对照解析的"拆译整合"逐句对比</li>
+        <li><strong>输出顺序</strong>——先认词→再拆句→再学做题→最后学输出，四级阶段输出靠模板和积累即可</li>
+      </ul>
+      <div class="method-quote">
+        "英语从60到130真正最短的路线就四步：先认词、再拆句、再学做题、最后学输出。顺序错一个，后面的努力全部跟着打折。" —— 学霸厂长
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">STRATEGIES</span>
+      <h2 class="section-title">四大题型核心技巧</h2>
+      <p class="section-desc">基于星火英语应试指南整理，每个题型的提分关键点和做题策略。</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon writing">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E8720C" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div>
+            <div class="skill-title">写作</div>
+            <div class="skill-score">15% · 30分钟 · 120词以上</div>
+          </div>
+        </div>
+        <ul class="skill-tips">
+          <li>三段论结构：首段提现象，中间段论述，末段总结</li>
+          <li>重点掌握现象解释型（占比最大）框架</li>
+          <li>积累高级表达替换简单词，长短句交替</li>
+          <li>使用缩进式，每段开头缩进4字符</li>
+          <li>写完通读检查拼写和语法错误</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon listening">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1A2E4B" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+          </div>
+          <div>
+            <div class="skill-title">听力</div>
+            <div class="skill-score">35% · 25分钟 · 分值最高</div>
+          </div>
+        </div>
+        <ul class="skill-tips">
+          <li>听前快速浏览选项，竖着读画实词预测话题</li>
+          <li>边听边做题，听到关键词或同义替换立即选</li>
+          <li>题文同序，上一题选出立即看下一题</li>
+          <li>做完一篇立即涂卡，听力结束答题卡1立即回收</li>
+          <li>错题必须精听，分析是单词还是语音现象问题</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon reading">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3A7D5C" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          </div>
+          <div>
+            <div class="skill-title">阅读</div>
+            <div class="skill-score">35% · 40分钟 · 仔细阅读20%</div>
+          </div>
+        </div>
+        <ul class="skill-tips">
+          <li>答题顺序：仔细阅读→长篇阅读→选词填空</li>
+          <li>仔细阅读：关键词定位→题文同序→同义转述</li>
+          <li>长篇阅读：10题全读完划关键词→速读匹配段落</li>
+          <li>选词填空：先判词性再代入语境，分值低可最后做</li>
+          <li>精读是根本，逐句掌握生词难句而非狂做题</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon translation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#9C5C38" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+          </div>
+          <div>
+            <div class="skill-title">翻译</div>
+            <div class="skill-score">15% · 30分钟 · 中国文化主题</div>
+          </div>
+        </div>
+        <ul class="skill-tips">
+          <li>TT翻译法：提主干（主谓宾）→调语序</li>
+          <li>积累中国历史文化、经济社会相关词汇</li>
+          <li>多动词句：一个为谓语，其他处理为从句/非谓语</li>
+          <li>直译为主，特色词汇意译，不刻意追求高级词</li>
+          <li>译完检查时态、语态、单复数、主谓一致</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="exam" style="background: var(--paper-dark);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">EXAM DAY</span>
+      <h2 class="section-title">考试当天流程</h2>
+      <p class="section-desc">熟悉考试时间线，避免因流程不熟悉失分。</p>
+    </div>
+    <div class="exam-flow">
+      <div class="flow-item">
+        <div class="flow-time">8:40</div>
+        <div class="flow-title">考生入场</div>
+        <div class="flow-desc">出示准考证、身份证、学生证，手机严禁带入，入座后调试耳机试听</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-time">9:00</div>
+        <div class="flow-title">下发考试材料</div>
+        <div class="flow-desc">检查试题册、条形码、答题卡，粘贴条形码填写个人信息，作文期间不得翻阅试题册</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-time">9:10 — 9:40</div>
+        <div class="flow-title">写作考试（30分钟）</div>
+        <div class="flow-desc">黑色签字笔在答题卡1作答，题目在试题册背面，三段式结构</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-time">9:40 — 10:05</div>
+        <div class="flow-title">听力考试（25分钟）</div>
+        <div class="flow-desc">打开试题册戴耳机，边听边涂卡，录音播放完毕立即停止作答，回收答题卡1</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-time">10:10 — 11:20</div>
+        <div class="flow-title">阅读理解+翻译（70分钟）</div>
+        <div class="flow-desc">在答题卡2作答，阅读40分钟+翻译30分钟，合理分配时间</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-time">11:20</div>
+        <div class="flow-title">考试结束</div>
+        <div class="flow-desc">停止作答，交回试题册和答题卡2，老师清点无误后方可离场</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="resources">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">RESOURCES</span>
+      <h2 class="section-title">备考资源推荐</h2>
+    </div>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E8720C" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div><div class="resource-name">百词斩APP <span style="font-size:11px;background:#E8720C;color:#fff;padding:2px 6px;border-radius:3px;margin-left:4px;">背单词专用</span></div><div class="resource-desc">每天快速过200个单词，只记意思不记拼写，大量重复记忆</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1A2E4B" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <div><div class="resource-name">星火英语四级真题 <span style="font-size:11px;background:#1A2E4B;color:#fff;padding:2px 6px;border-radius:3px;margin-left:4px;">听力/阅读/写作/翻译</span></div><div class="resource-desc">核心备考材料，至少做近10套，精读精听每一套</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7D5C" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/></svg></div>
+        <div><div class="resource-name">星火英语APP</div><div class="resource-desc">历年真题听力题库，每套试题配同步字幕，精听必备</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9C5C38" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div><div class="resource-name">星火英语《简·四级写作》</div><div class="resource-desc">各类型作文命题特点、首中末段写作方法和模板框架</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1A2E4B" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M22 22l-5-10-5 10"/></svg></div>
+        <div><div class="resource-name">星火英语《简·四级翻译》</div><div class="resource-desc">TT翻译法、基础语法+200篇翻译练习，中国文化词汇积累</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E8720C" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div><div class="resource-name">YouZack精听平台</div><div class="resource-desc">听力精听训练，支持逐句复读、字幕对照，配合"看懂90%再听"法</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p><strong>CET-4 备考空间站</strong> · 为2026年12月四级考试定制</p>
+  <p style="margin-top:8px;">学习没有捷径，只有付出努力才能得到好成绩。坚持91天，你一定可以。</p>
+</footer>
+
+<script>
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => navLinks.classList.remove('open')); });
+document.addEventListener('click', (e) => { if (!e.target.closest('.nav-inner')) { navLinks.classList.remove('open'); } });
+
+const examDate = new Date('2026-12-12T09:00:00+08:00');
+const startDate = new Date('2026-09-13T00:00:00+08:00');
+function updateCountdown() {
+  const now = new Date();
+  const diff = examDate - now;
+  if (diff <= 0) { document.getElementById('cd-days').textContent='0'; document.getElementById('cd-hours').textContent='0'; document.getElementById('cd-mins').textContent='0'; document.getElementById('cd-secs').textContent='0'; return; }
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const secs = Math.floor((diff % (1000*60)) / 1000);
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  const total = examDate - startDate;
+  const elapsed = now - startDate;
+  const progress = Math.min(Math.max((elapsed/total)*100,0),100);
+  document.getElementById('progress-fill').style.width = progress + '%';
+  document.getElementById('progress-text').textContent = progress.toFixed(1) + '%';
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+const phaseCards = document.querySelectorAll('.phase-card');
+const phaseDetails = document.querySelectorAll('.phase-detail');
+phaseCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const idx = card.dataset.phase;
+    phaseCards.forEach(c => c.classList.remove('active'));
+    phaseDetails.forEach(d => d.classList.remove('show'));
+    card.classList.add('active');
+    document.getElementById('phase-detail-' + idx).classList.add('show');
+  });
+});
+
+const LISTENING_URL = 'https://www.youzack.com/';
+const taskData = {
+  0: { basic: [
+    { text: '快速过单词200个（只记意思，大量重复）', time: '30分钟 · 早晨' },
+    { text: '阅读精读1篇（先题干不看选项→定位→同义替换）', time: '30分钟 · 晚间' },
+    { text: '学习1个语法点 + 长难句拆解', time: '20分钟 · 晚间' },
+  ], special: [
+    { text: '听力：先看懂文本90%→再精听（返听5遍+黑红笔听写）', time: '30分钟 · 晚间', link: LISTENING_URL },
+    { text: 'VOA慢速英语泛听磨耳朵', time: '20分钟 · 中午', link: LISTENING_URL },
+    { text: '整理今日生词到错题本（只记意思）', time: '10分钟' },
+  ]},
+  1: { basic: [
+    { text: '真题高频词快速过150个+错题词复习', time: '20分钟 · 早晨' },
+    { text: '阅读专项：仔细阅读2篇（题干定位法）', time: '30分钟 · 晚间' },
+  ], special: [
+    { text: '听力精听：长难句拆解复听，标记连读弱读吞读', time: '30分钟 · 晚间', link: LISTENING_URL },
+    { text: '写作/翻译：模板套用练习（单周写作/双周翻译）', time: '30分钟 · 晚间' },
+    { text: '单一任务专注：今天只突破一个薄弱题型', time: '40分钟' },
+  ]},
+  2: { basic: [
+    { text: '高频词 + 错题本快速回顾', time: '20分钟 · 早晨' },
+    { text: '写作模板背诵 + 真题套用仿写', time: '20分钟' },
+  ], special: [
+    { text: '隔天：完整真题模考（严格计时，一天只做这一件事）', time: '130分钟', link: LISTENING_URL },
+    { text: '非模考日：20小时窄域突破最弱题型', time: '60分钟' },
+    { text: '模考错题：黑红笔对照，逐句拆解', time: '30分钟' },
+  ]}
+};
+function getCurrentPhase() { const now = new Date(); if (now < new Date('2026-10-19T00:00:00+08:00')) return 0; if (now < new Date('2026-11-23T00:00:00+08:00')) return 1; return 2; }
+function getTodayKey() { const now = new Date(); return now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate(); }
+function loadTaskState() { try { const data = JSON.parse(localStorage.getItem('cet4_tasks')||'{}'); return data[getTodayKey()]||{}; } catch(e) { return {}; } }
+function saveTaskState(state) { try { const data = JSON.parse(localStorage.getItem('cet4_tasks')||'{}'); data[getTodayKey()]=state; localStorage.setItem('cet4_tasks',JSON.stringify(data)); } catch(e) {} }
+function renderTasks() {
+  const phase = getCurrentPhase();
+  const data = taskData[phase];
+  const state = loadTaskState();
+  const basicContainer = document.getElementById('basic-tasks');
+  const specialContainer = document.getElementById('special-tasks');
+  function renderList(container, tasks, prefix) {
+    container.innerHTML = '';
+    tasks.forEach((task, i) => {
+      const id = prefix+'_'+i;
+      const done = state[id]||false;
+      const item = document.createElement('div');
+      item.className = 'task-item'+(done?' done':'');
+      const linkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+      const textHtml = task.link ? `<span class="task-link" data-url="${task.link}">${task.text}${linkIcon}</span>` : task.text;
+      item.innerHTML = `<div class="task-checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="task-text">${textHtml}</div><div class="task-time">${task.time}</div></div>`;
+      item.addEventListener('click', (e) => {
+        if (e.target.closest('.task-link')) { window.open(e.target.closest('.task-link').dataset.url,'_blank','noopener,noreferrer'); return; }
+        state[id] = !state[id]; saveTaskState(state); renderTasks();
+      });
+      container.appendChild(item);
+    });
+  }
+  renderList(basicContainer, data.basic, 'b');
+  renderList(specialContainer, data.special, 's');
+  const basicDone = data.basic.filter((_,i)=>state['b_'+i]).length;
+  const specialDone = data.special.filter((_,i)=>state['s_'+i]).length;
+  document.getElementById('basic-count').textContent = basicDone+'/'+data.basic.length;
+  document.getElementById('special-count').textContent = specialDone+'/'+data.special.length;
+  document.getElementById('basic-percent').textContent = Math.round(basicDone/data.basic.length*100)+'%';
+  document.getElementById('special-percent').textContent = Math.round(specialDone/data.special.length*100)+'%';
+  document.getElementById('basic-progress').style.width = (basicDone/data.basic.length*100)+'%';
+  document.getElementById('special-progress').style.width = (specialDone/data.special.length*100)+'%';
+}
+renderTasks();
+
+const SCORE_KEY = 'cet4_scores';
+const PASS_LINE = 425;
+const PTS = { news:7.1, dialog:7.1, passage:14.2, cloze:3.55, match:7.1, careful:14.2 };
+const FULL = { listening:248.5, reading:248.5, writing:106.5, translation:106.5 };
+function normScore(rate) {
+  const pts = [[0.00,0.43],[0.10,0.48],[0.20,0.54],[0.30,0.59],[0.40,0.64],[0.50,0.70],[0.60,0.76],[0.70,0.82],[0.80,0.88],[0.90,0.94],[1.00,1.00]];
+  for (let i=0;i<pts.length-1;i++) { if (rate<=pts[i+1][0]) { const t=(rate-pts[i][0])/(pts[i+1][0]-pts[i][0]); return pts[i][1]+t*(pts[i+1][1]-pts[i][1]); } }
+  return 1;
+}
+function calcScores(q) {
+  const rawListening = q.news*PTS.news+q.dialog*PTS.dialog+q.passage*PTS.passage;
+  const rawReading = q.cloze*PTS.cloze+q.match*PTS.match+q.careful*PTS.careful;
+  const rawWriting = q.writing/15*FULL.writing;
+  const rawTranslation = q.translation/15*FULL.translation;
+  const rawTotal = rawListening+rawReading+rawWriting+rawTranslation;
+  const scaledListening = FULL.listening*normScore(rawListening/FULL.listening);
+  const scaledReading = FULL.reading*normScore(rawReading/FULL.reading);
+  const scaledTotal = scaledListening+scaledReading+rawWriting+rawTranslation;
+  return {
+    raw: { listening:Math.round(rawListening*10)/10, reading:Math.round(rawReading*10)/10, writing:Math.round(rawWriting*10)/10, translation:Math.round(rawTranslation*10)/10, total:Math.round(rawTotal) },
+    scaled: { listening:Math.round(scaledListening*10)/10, reading:Math.round(scaledReading*10)/10, writing:Math.round(rawWriting*10)/10, translation:Math.round(rawTranslation*10)/10, total:Math.round(scaledTotal) }
+  };
+}
+let radarChart = null, trendChart = null;
+function loadScores() { try { const data=JSON.parse(localStorage.getItem(SCORE_KEY)||'[]'); return data.map(s=>s.q?s:{...s,_legacy:true}); } catch(e) { return []; } }
+function saveScores(scores) { localStorage.setItem(SCORE_KEY,JSON.stringify(scores)); }
+function renderScoreStats() {
+  const scores = loadScores().filter(s=>!s._legacy);
+  const count = scores.length;
+  document.getElementById('stat-count').textContent = count;
+  if (count===0) { ['stat-raw-avg','stat-scaled-avg','stat-max','stat-latest'].forEach(id=>document.getElementById(id).textContent='--'); document.getElementById('stat-pass').textContent='0%'; document.getElementById('stat-pass').className='stat-num'; document.getElementById('score-empty').style.display='block'; return; }
+  document.getElementById('score-empty').style.display='none';
+  const rawTotals = scores.map(s=>s.raw.total);
+  const scaledTotals = scores.map(s=>s.scaled.total);
+  document.getElementById('stat-raw-avg').textContent = Math.round(rawTotals.reduce((a,b)=>a+b,0)/count);
+  document.getElementById('stat-scaled-avg').textContent = Math.round(scaledTotals.reduce((a,b)=>a+b,0)/count);
+  document.getElementById('stat-max').textContent = Math.max(...scaledTotals);
+  const passRate = Math.round(scaledTotals.filter(t=>t>=PASS_LINE).length/count*100);
+  document.getElementById('stat-pass').textContent = passRate+'%';
+  document.getElementById('stat-pass').className = 'stat-num '+(passRate>=50?'pass':'fail');
+  document.getElementById('stat-latest').textContent = scores[scores.length-1].scaled.total;
+}
+function renderRadar() {
+  const scores = loadScores().filter(s=>!s._legacy);
+  const el = document.getElementById('radar-chart');
+  const emptyEl = document.getElementById('radar-empty');
+  if (scores.length===0) { el.style.display='none'; emptyEl.style.display='block'; return; }
+  el.style.display='block'; emptyEl.style.display='none';
+  const avg = { writing:0, listening:0, reading:0, translation:0 };
+  scores.forEach(s=>{ avg.writing+=s.scaled.writing/FULL.writing; avg.listening+=s.scaled.listening/FULL.listening; avg.reading+=s.scaled.reading/FULL.reading; avg.translation+=s.scaled.translation/FULL.translation; });
+  const n = scores.length;
+  const rates = [Math.round(avg.writing/n*100),Math.round(avg.listening/n*100),Math.round(avg.reading/n*100),Math.round(avg.translation/n*100)];
+  if (!radarChart) radarChart = echarts.init(el);
+  radarChart.setOption({ color:['#E8720C'], radar:{ indicator:[{name:'写作',max:100},{name:'听力',max:100},{name:'阅读',max:100},{name:'翻译',max:100}], shape:'polygon', splitNumber:4, axisName:{color:'#1A2E4B',fontSize:13,fontWeight:500}, splitLine:{lineStyle:{color:'#D9D2C5'}}, splitArea:{areaStyle:{color:['#FAF7F2','#FFFFFF']}}, axisLine:{lineStyle:{color:'#D9D2C5'}} }, series:[{type:'radar',data:[{value:rates,name:'赋分平均得分率(%)',areaStyle:{color:'rgba(232,114,12,0.15)'},lineStyle:{color:'#E8720C',width:2},itemStyle:{color:'#E8720C'},label:{show:true,formatter:'{c}%',fontSize:11,color:'#1A2E4B'}}]}], tooltip:{trigger:'item'} });
+  new ResizeObserver(()=>radarChart.resize()).observe(el);
+}
+function renderTrend() {
+  const scores = loadScores().filter(s=>!s._legacy);
+  const el = document.getElementById('trend-chart');
+  if (scores.length===0) { el.innerHTML='<div class="empty-state"><p>录入成绩后生成趋势图</p></div>'; return; }
+  const sorted = [...scores].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if (!trendChart) trendChart = echarts.init(el);
+  trendChart.setOption({ color:['#8A8275','#E8720C'], tooltip:{trigger:'axis',confine:true}, legend:{data:['真实总分','常模赋分'],bottom:0,textStyle:{fontSize:12}}, grid:{left:'8%',right:'5%',top:'10%',bottom:'15%'}, xAxis:{type:'category',data:sorted.map(s=>s.date.slice(5)),axisLabel:{fontSize:11}}, yAxis:{type:'value',name:'分数',min:200,max:710,axisLabel:{fontSize:11},splitLine:{lineStyle:{color:'#EEE'}}}, series:[{name:'真实总分',type:'line',data:sorted.map(s=>s.raw.total),smooth:true,lineStyle:{width:2,type:'dashed'},itemStyle:{color:'#8A8275'},symbol:'circle',symbolSize:6},{name:'常模赋分',type:'line',data:sorted.map(s=>s.scaled.total),smooth:true,lineStyle:{width:3},itemStyle:{color:'#E8720C'},symbol:'circle',symbolSize:8,markLine:{silent:true,symbol:'none',data:[{yAxis:425,lineStyle:{color:'#C0392B',type:'dashed'},label:{formatter:'及格线425',fontSize:11,color:'#C0392B'}}]}}] });
+  new ResizeObserver(()=>trendChart.resize()).observe(el);
+}
+function renderHistory() {
+  const scores = loadScores();
+  const wrap = document.getElementById('history-table-wrap');
+  if (scores.length===0) { wrap.innerHTML='<p style="color:var(--muted);font-size:13px;">暂无记录</p>'; return; }
+  const sorted = [...scores].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  let html = '<table class="score-table"><thead><tr><th>日期</th><th>套题</th><th>听力<br>(对/总)</th><th>阅读<br>(对/总)</th><th>写作<br>(/15)</th><th>翻译<br>(/15)</th><th>真实分</th><th>赋分</th><th>分析</th><th>操作</th></tr></thead><tbody>';
+  sorted.forEach((s)=>{
+    const realIdx = scores.indexOf(s);
+    if (s._legacy) { const total=Math.round(s.writing+s.listening+s.reading+s.translation); html+=`<tr class="${total>=PASS_LINE?'pass-row':'fail-row'}"><td>${s.date}</td><td>${s.name}</td><td colspan="4" style="color:var(--muted);font-size:12px;">旧格式数据</td><td>${total}</td><td>--</td><td>--</td><td><button class="btn-danger" onclick="deleteScore(${realIdx})">删除</button></td></tr>`; return; }
+    const listenCorrect = s.q.news+s.q.dialog+s.q.passage;
+    const readCorrect = s.q.cloze+s.q.match+s.q.careful;
+    const pass = s.scaled.total>=PASS_LINE;
+    html+=`<tr class="${pass?'pass-row':'fail-row'}"><td>${s.date}</td><td>${s.name}</td><td>${listenCorrect}/25</td><td>${readCorrect}/30</td><td>${s.q.writing}</td><td>${s.q.translation}</td><td style="color:var(--muted);">${s.raw.total}</td><td class="total-col">${s.scaled.total}</td><td><button class="btn-danger" style="border-color:var(--accent);color:var(--accent);" onclick="analyzePaper(${realIdx})">查看</button></td><td><button class="btn-danger" onclick="deleteScore(${realIdx})">删除</button></td></tr>`;
+  });
+  html+='</tbody></table>';
+  wrap.innerHTML = html;
+}
+function analyzePaper(idx) {
+  const scores = loadScores();
+  const s = scores[idx];
+  if (!s||s._legacy) return;
+  const pass = s.scaled.total>=PASS_LINE;
+  const diff = s.scaled.total-s.raw.total;
+  const rates = { writing:Math.round(s.scaled.writing/FULL.writing*100), listening:Math.round(s.scaled.listening/FULL.listening*100), reading:Math.round(s.scaled.reading/FULL.reading*100), translation:Math.round(s.scaled.translation/FULL.translation*100) };
+  const parts = [{key:'writing',name:'写作',rate:rates.writing},{key:'listening',name:'听力',rate:rates.listening},{key:'reading',name:'阅读',rate:rates.reading},{key:'translation',name:'翻译',rate:rates.translation}].sort((a,b)=>a.rate-b.rate);
+  const weakest = parts[0], strongest = parts[3];
+  let suggestions = [];
+  if (weakest.rate<50) suggestions.push(`<strong>${weakest.name}</strong>赋分得分率仅${weakest.rate}%，严重薄弱，建议每天专项训练30分钟，回归基础。`);
+  else if (weakest.rate<65) suggestions.push(`<strong>${weakest.name}</strong>赋分得分率${weakest.rate}%，仍有提升空间，建议强化${weakest.name}题型技巧。`);
+  if (rates.listening<65) suggestions.push('听力偏弱：用"看懂90%文本再听"法精听，重点突破连读弱读，每天至少30分钟。');
+  if (rates.reading<65) suggestions.push('阅读偏弱：用"题干定位法"练习，先看题干不看选项，积累真题高频词和同义替换。');
+  if (rates.writing<65) suggestions.push('写作偏弱：背诵2-3套三段论模板，每周写2篇对照范文修改，不要考场现编。');
+  if (rates.translation<65) suggestions.push('翻译偏弱：掌握TT翻译法（提主干→调语序），积累中国文化概况相关词汇。');
+  if (suggestions.length===0) suggestions.push('各题型表现均衡，继续保持，重点冲刺高分。');
+  const gap = Math.max(0,PASS_LINE-s.scaled.total);
+  const statusText = pass?`已超过及格线 ${s.scaled.total-PASS_LINE} 分，继续保持！`:`距离及格线还差 ${gap} 分，重点突破<strong>${weakest.name}</strong>可最快提分。`;
+  const chartId = 'paper-bar-'+Date.now();
+  document.getElementById('analysis-content').innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px;"><div><div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px;">${s.name}（${s.date}）</div><div style="display:flex;align-items:baseline;gap:12px;"><div style="font-size:32px;font-weight:900;font-family:'Noto Serif SC',serif;color:${pass?'var(--success)':'#C0392B'};">${s.scaled.total}</div><div style="font-size:13px;color:var(--muted);">赋分 / 真实 ${s.raw.total}（${diff>=0?'+':''}${diff}）</div></div><div style="font-size:13px;color:var(--muted);margin-top:4px;">${statusText}</div></div><div style="display:flex;flex-direction:column;justify-content:center;gap:8px;"><div style="font-size:13px;color:var(--muted);">最强项：<strong style="color:var(--success);">${strongest.name}</strong>（${strongest.rate}%）</div><div style="font-size:13px;color:var(--muted);">最弱项：<strong style="color:#C0392B;">${weakest.name}</strong>（${weakest.rate}%）</div></div></div><div style="font-size:12px;color:var(--muted);margin-bottom:10px;">各部分赋分得分率（基于常模赋分）</div><div id="${chartId}" style="width:100%;height:280px;"></div><div class="analysis-tip"><strong>针对性建议：</strong><br>${suggestions.map(s=>'• '+s).join('<br>')}</div>`;
+  setTimeout(()=>{ const barEl=document.getElementById(chartId); if(barEl&&window.echarts){ const bar=echarts.init(barEl); bar.setOption({color:['#1A2E4B'],tooltip:{trigger:'axis',confine:true,formatter:(params)=>params[0].name+'：'+params[0].value+'%'},grid:{left:'8%',right:'5%',top:'10%',bottom:'10%'},xAxis:{type:'category',data:parts.map(p=>p.name),axisLabel:{fontSize:12}},yAxis:{type:'value',max:100,axisLabel:{fontSize:11,formatter:'{value}%'},splitLine:{lineStyle:{color:'#EEE'}}},series:[{type:'bar',data:parts.map(p=>({value:p.rate,itemStyle:{color:p.rate<50?'#C0392B':p.rate<65?'#E8720C':'#3A7D5C'}})),barWidth:'40%',label:{show:true,position:'top',formatter:'{c}%',fontSize:12}}]}); new ResizeObserver(()=>bar.resize()).observe(barEl); } },50);
+}
+function deleteScore(idx) { if(!confirm('确定删除这条成绩记录吗？'))return; const scores=loadScores(); scores.splice(idx,1); saveScores(scores); refreshScoreCenter(); document.getElementById('analysis-content').innerHTML='<div class="empty-state"><p>选择一套试卷查看详细分析</p></div>'; }
+function refreshScoreCenter() { renderScoreStats(); renderRadar(); renderTrend(); renderHistory(); }
+function updatePreview() {
+  const q = { news:parseInt(document.getElementById('q-news').value)||0, dialog:parseInt(document.getElementById('q-dialog').value)||0, passage:parseInt(document.getElementById('q-passage').value)||0, cloze:parseInt(document.getElementById('q-cloze').value)||0, match:parseInt(document.getElementById('q-match').value)||0, careful:parseInt(document.getElementById('q-careful').value)||0, writing:parseFloat(document.getElementById('q-writing').value)||0, translation:parseFloat(document.getElementById('q-translation').value)||0 };
+  document.getElementById('listen-count').textContent = q.news+q.dialog+q.passage;
+  document.getElementById('read-count').textContent = q.cloze+q.match+q.careful;
+  const hasInput = q.news+q.dialog+q.passage+q.cloze+q.match+q.careful+q.writing+q.translation>0;
+  document.getElementById('score-preview').style.display = hasInput?'block':'none';
+  if (hasInput) { const r=calcScores(q); document.getElementById('preview-raw').textContent=r.raw.total; document.getElementById('preview-scaled').textContent=r.scaled.total; }
+}
+['q-news','q-dialog','q-passage','q-cloze','q-match','q-careful','q-writing','q-translation'].forEach(id=>document.getElementById(id).addEventListener('input',updatePreview));
+document.getElementById('score-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  const date=document.getElementById('score-date').value;
+  const name=document.getElementById('score-name').value.trim();
+  const q={ news:parseInt(document.getElementById('q-news').value), dialog:parseInt(document.getElementById('q-dialog').value), passage:parseInt(document.getElementById('q-passage').value), cloze:parseInt(document.getElementById('q-cloze').value), match:parseInt(document.getElementById('q-match').value), careful:parseInt(document.getElementById('q-careful').value), writing:parseFloat(document.getElementById('q-writing').value), translation:parseFloat(document.getElementById('q-translation').value) };
+  if(!date||!name){alert('请填写日期和套题名称');return;}
+  if(Object.values(q).some(v=>isNaN(v)||v<0)){alert('请填写有效的题数和分数');return;}
+  if(q.news>7||q.dialog>8||q.passage>10){alert('听力题数超出范围');return;}
+  if(q.cloze>10||q.match>10||q.careful>10){alert('阅读题数超出范围');return;}
+  if(q.writing>15||q.translation>15){alert('写作翻译分数范围0-15');return;}
+  const scores=loadScores();
+  const result=calcScores(q);
+  scores.push({date,name,q,raw:result.raw,scaled:result.scaled});
+  saveScores(scores);
+  this.reset();
+  document.getElementById('score-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('score-preview').style.display='none';
+  document.getElementById('listen-count').textContent='0';
+  document.getElementById('read-count').textContent='0';
+  refreshScoreCenter();
+  const newIdx=scores.length-1;
+  setTimeout(()=>analyzePaper(newIdx),100);
+});
+document.getElementById('score-date').value=new Date().toISOString().slice(0,10);
+refreshScoreCenter();
+</script>
+</body>
+</html>
